@@ -1,5 +1,6 @@
 .gradle
 build/
+log-*.txt
 
 # =========================
 # Operating System Files
@@ -40,3 +41,6 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+
+# IntelliJ Idea
+.idea

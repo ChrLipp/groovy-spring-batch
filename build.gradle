@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+		final SPRING_BOOT_VERSION = '1.1.9.RELEASE'
+		final CODECENTRIC_BATCH_VERSION = '1.2.0.RELEASE'
+		
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${SPRING_BOOT_VERSION}"
+		classpath "de.codecentric:spring-boot-starter-batch-web:${CODECENTRIC_BATCH_VERSION}"
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'spring-boot'
+apply plugin: 'idea'
+
+// Dependencies
+repositories {
+    jcenter()
+}
+
+dependencies {
+    final GROOVY_VERSION = '2.3.7'
+	final SPOCK_VERSION = '0.7-groovy-2.0'
+
+	// Groovy, use the indy jars (java 7 and up only!)
+    compile "org.codehaus.groovy:groovy-all:${GROOVY_VERSION}:indy"
+	
+	// Spring boot starters
+//    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+//    compile 'org.springframework.boot:spring-boot-starter-batch'
+
+	// Test libraries
+	testCompile "org.spockframework:spock-spring:${SPOCK_VERSION}"
+	testCompile 'org.springframework.batch:spring-batch-test'
+}
+
+// Gradle settings
+wrapper {
+    gradleVersion = '2.1'
+}
+
+// Java settings
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+jar {
+    baseName = 'myproject'
+    version =  '0.0.1-SNAPSHOT'
+}
+
+// Groovy options
+[compileGroovy.groovyOptions, compileTestGroovy.groovyOptions]*.with {
+    optimizationOptions = [ indy: true]
+}
